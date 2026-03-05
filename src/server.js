@@ -22,6 +22,17 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
+// Root route - avoid "Cannot GET /" on deployed URL
+app.get('/', (req, res) => {
+  res.json({
+    name: 'KodFlix API',
+    status: 'running',
+    health: '/api/health',
+    auth: '/api/auth (signup, login, me, logout)',
+    movies: '/api/movies (trending, top-rated, action, comedy)',
+  });
+});
+
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' });
 });
